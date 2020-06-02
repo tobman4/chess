@@ -15,7 +15,7 @@ class pawn extends Piec {
   
   pawn(int x,int y, int move_dir) {
     super(x,y);
-   this.move_dir = move_dir; 
+    this.move_dir = move_dir; 
   }
   
   void move(Point new_pos) {

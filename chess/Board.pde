@@ -39,7 +39,6 @@ class Board  {
   }
   
   boolean place_piec(int x, int y, Piec p, boolean force) {
-    println(this.Board[x][y]);
     if(this.Board[x][y] == null || force) {
       p.pos = new Point(x*this.pice_size,y*this.pice_size); 
       this.Board[x][y] = p;
@@ -54,8 +53,21 @@ class Board  {
     
     boolean wil_kill = this.is_killing_move(to,from);
     boolean wil_jump = this.is_jump_move(to,from);
-    println(wil_kill);
-    if(curr.move_check(from, to,wil_kill,false) || force) {
+    
+    if(DEBUG) {
+      print("this move wil kill: ");
+      println(wil_kill);
+      print("this move wil jump: ");
+      println(wil_jump);
+      
+      print("move from: ");
+      from.DBG();
+      print("\nmove to: ");
+      to.DBG();
+      println();
+    }
+    
+    if(curr.move_check(from, to,wil_kill,wil_jump) || force) {
       curr.move(new Point(to.X*this.pice_size,to.Y*this.pice_size));
       this.Board[from.X][from.Y] = null;
       this.Board[to.X][to.Y] = curr;
@@ -70,7 +82,68 @@ class Board  {
     return (this.Board[a.X][a.Y] != null && this.Board[b.X][b.Y] != null);
   }
   
-  boolean is_jump_move(Point a, Point b) {
+  boolean is_jump_move(Point b, Point a) {
+    int X_dif = a.X - b.X;
+    int Y_dif = a.Y - b.Y;
+    int[] cord = {a.X,a.Y};
+    
+    
+    if(X_dif == 0 || Y_dif == 0) { // ifi it is not a diagonal move
+      int start,end,step,mark;
+      if(X_dif != 0) {
+        start = a.X;
+        end = b.X;
+        mark = 0;
+      } else {
+        start = a.Y;
+        end = b.Y;
+        mark = 1;
+      }
+      if(start > end) {
+        step = -1;
+      } else {
+        step = 1;
+      }
+      
+      end = end - step;
+      start = start + step;
+      
+      for(int i = start; i != end-step; i += step) {
+        cord[mark] = i;
+        if(this.Board[cord[0]][cord[1]] != null) {
+          return true;
+        }
+      }
+    } else if(X_dif == Y_dif || -X_dif == Y_dif) {
+      int start,end,step;
+      int X_step;
+      int Y_step;
+      if(a.X < b.X) {
+        X_step = 1;
+      } else {
+        X_step = -1;
+      }
+      if(a.Y < b.Y) {
+        Y_step = 1;
+      } else {
+        Y_step = -1;
+      }
+      
+      start = a.X;
+      end = b.X;
+      if(start > end) {
+        step = -1;
+      } else {
+        step = 1;
+      }
+      for(int i = start; i != end-step; i += step) {
+        cord[0] += X_step;
+        cord[1] += Y_step;
+        if(this.Board[cord[0]][cord[1]] != null) {
+          return true;
+        }
+      }
+    }
     return false;
   }
   

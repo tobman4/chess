@@ -38,4 +38,11 @@ class Point {
   Point Copy() {
     return new Point(this.X,this.Y);
   }
+  
+  void DBG() {
+    print("X: ");
+    print(this.X);
+    print("Y: ");
+    print(this.Y);
+  }
 }
