@@ -85,7 +85,7 @@ class Board  {
   boolean is_jump_move(Point b, Point a) {
     int X_dif = a.X - b.X;
     int Y_dif = a.Y - b.Y;
-    int[] cord = {a.X,a.Y};
+    int[] cord = {a.X,a.Y}; //<>//
     
     if(X_dif == 0 || Y_dif == 0) { // ifi it is not a diagonal move
       int start,end,step,mark;
@@ -120,7 +120,7 @@ class Board  {
         }
       }
     } else if(X_dif == Y_dif || -X_dif == Y_dif) {
-      int start,end,step;
+      int start,end,step; //<>//
       int X_step;
       int Y_step;
       if(a.X < b.X) {

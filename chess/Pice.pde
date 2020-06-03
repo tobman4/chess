@@ -67,7 +67,7 @@ class bishop extends Piec {
     int X_dif = from.X - to.X;
     int Y_dif = from.Y - to.Y;
     
-    return (X_dif == Y_dif) || (-X_dif == Y_dif) && !wil_jump;
+    return ((X_dif == Y_dif) || (-X_dif == Y_dif)) && !wil_jump;
   }
 }
 //////////////////////////////////////////////////////////////////////////////
