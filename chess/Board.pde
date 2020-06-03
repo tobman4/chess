@@ -1,7 +1,7 @@
 
 class Board  {
   Point pos = new Point(0,0);
-  final int size = 10;
+  final int size = 8;
   final int pice_size = 60;
   
   private Piec[][] Board = new Piec[this.size][this.size];
@@ -87,7 +87,6 @@ class Board  {
     int Y_dif = a.Y - b.Y;
     int[] cord = {a.X,a.Y};
     
-    
     if(X_dif == 0 || Y_dif == 0) { // ifi it is not a diagonal move
       int start,end,step,mark;
       if(X_dif != 0) {
@@ -105,12 +104,18 @@ class Board  {
         step = 1;
       }
       
-      end = end - step;
-      start = start + step;
+      //end = end - step;
+      //start = start + step;
       
-      for(int i = start; i != end-step; i += step) {
+      for(int i = start; i != end; i += step) {
         cord[mark] = i;
-        if(this.Board[cord[0]][cord[1]] != null) {
+        (new Point(cord[0],cord[1])).DBG();
+        print(" = ");
+        println(this.Board[cord[0]][cord[1]]);
+        
+         if(cord[0] == a.X && cord[1] == a.Y || cord[0] == b.X && cord[1] == b.Y) {
+           println("is me or end");
+         } else if(this.Board[cord[0]][cord[1]] != null) {
           return true;
         }
       }
