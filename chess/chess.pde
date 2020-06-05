@@ -1,7 +1,7 @@
 Board board;
 board_controller controller;
 PImage piec_sheet;
-boolean DEBUG = true;
+boolean DEBUG = false;
 
 int[][] piec_list1 = {
   {0,1,1,0}, // pawn
@@ -11,9 +11,7 @@ int[][] piec_list1 = {
   {0,1,1,4},
   {0,1,1,5},
   {0,1,1,6},
-  {0,1,1,7},
-  //{0,0,1,8},
-  //{0,0,1,9}, // pawn end
+  {0,1,1,7}, // pawn end
   
   {1,1,0,0}, // tower
   {1,1,0,7}, // tower end
@@ -27,7 +25,7 @@ int[][] piec_list1 = {
   {4,1,0,3}, // king
   {5,1,0,4}, // queen
 };
-
+/*
 int[][] piec_list2 = {
   {0,0,6,0}, // pawn
   {0,0,6,1},
@@ -36,9 +34,7 @@ int[][] piec_list2 = {
   {0,0,6,4},
   {0,0,6,5},
   {0,0,6,6},
-  {0,0,6,7},
-  //{0,0,1,8},
-  //{0,0,1,9}, // pawn end
+  {0,0,6,7}, // pawn end
   
   {1,0,7,0}, // tower
   {1,0,7,7}, // tower end
@@ -51,11 +47,11 @@ int[][] piec_list2 = {
   
   {4,0,7,4}, // king
   {5,0,7,3}, // queen
-};
+};*/
 
 void setup() {
   
-  size(480,480);
+  size(600,480);
   
   piec_sheet = loadImage("piec_sheet.png");
   
@@ -64,11 +60,12 @@ void setup() {
   controller = new board_controller(board);
   
   controller._place_array(piec_list1);
-  controller._place_array(piec_list2);
+  //controller._place_array(piec_list2);
 }
 
 void draw() {
   board.render();
+  controller.render();
 }
 
 class Point {

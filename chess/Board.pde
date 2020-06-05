@@ -2,7 +2,9 @@
 class Board  {
   Point pos = new Point(0,0);
   final int size = 8;
-  final int pice_size = 60;
+  
+  final int piec_W = 60;
+  final int piec_H = 60;
   
   private Piec[][] Board = new Piec[this.size][this.size];
   
@@ -17,7 +19,7 @@ class Board  {
   void render() {
     boolean c = false;
     
-    
+    noStroke();
     for(int i = 0; i < this.Board.length; i++) {
       
       c = i%2 == 1; // velg farge den skal starte på
@@ -30,7 +32,7 @@ class Board  {
           fill(0);
         }
         c = !c;
-        rect(i*this.pice_size,j*this.pice_size,this.pice_size,this.pice_size);
+        rect(i*this.piec_W,j*this.piec_H,this.piec_W,this.piec_H);
         if(this.Board[i][j] != null) {
           this.Board[i][j].render();
         }
@@ -40,7 +42,7 @@ class Board  {
   
   boolean place_piec(int x, int y, Piec p, boolean force) {
     if(this.Board[x][y] == null || force) {
-      p.pos = new Point(x*this.pice_size,y*this.pice_size); 
+      p.pos = new Point(x*this.piec_W,y*this.piec_H); 
       this.Board[x][y] = p;
       return true;
     } else {
@@ -68,7 +70,7 @@ class Board  {
     }
     
     if(curr.move_check(from, to,wil_kill,wil_jump) || force) {
-      curr.move(new Point(to.X*this.pice_size,to.Y*this.pice_size));
+      curr.move(new Point(to.X*this.piec_W,to.Y*this.piec_H));
       this.Board[from.X][from.Y] = null;
       this.Board[to.X][to.Y] = curr;
     } else {
@@ -85,7 +87,7 @@ class Board  {
   boolean is_jump_move(Point b, Point a) {
     int X_dif = a.X - b.X;
     int Y_dif = a.Y - b.Y;
-    int[] cord = {a.X,a.Y}; //<>//
+    int[] cord = {a.X,a.Y};
     
     if(X_dif == 0 || Y_dif == 0) { // ifi it is not a diagonal move
       int start,end,step,mark;
@@ -109,12 +111,7 @@ class Board  {
       
       for(int i = start; i != end; i += step) {
         cord[mark] = i;
-        (new Point(cord[0],cord[1])).DBG();
-        print(" = ");
-        println(this.Board[cord[0]][cord[1]]);
-        
          if(cord[0] == a.X && cord[1] == a.Y || cord[0] == b.X && cord[1] == b.Y) {
-           println("is me or end");
          } else if(this.Board[cord[0]][cord[1]] != null) {
           return true;
         }
@@ -153,8 +150,8 @@ class Board  {
   }
   
   Point pixel_to_grid(int x,int y) {
-    int xr = floor(x/this.pice_size);
-    int yr = floor(y/this.pice_size);
+    int xr = floor(x/this.piec_W);
+    int yr = floor(y/this.piec_H);
     
     if(yr > this.size && yr < this.size) {
       return new Point(-1,yr);

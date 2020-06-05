@@ -1,18 +1,20 @@
 abstract class Piec {
-  Point pos;
+  Point pos,size;
   boolean DBG = false;
   boolean team = true;
   PImage icon = loadImage("default.PNG");
   
-  Piec(int x, int y,boolean t) {
+  Piec(int x, int y,int w, int h,boolean t) {
     this.pos = new Point(x,y);
-    this.icon.resize(60,60);
+    this.size = new Point(w,h);
+    this.icon.resize(w,h);
     team = t;
   }
   
   void render() {
+    noStroke();
     image(this.icon,this.pos.X,this.pos.Y);
-    if(this.DBG) {    
+    if(this.DBG) {
       fill(255,0,255,100);
       rect(this.pos.X,this.pos.Y,60,60);
     }  
@@ -35,8 +37,8 @@ class tower extends Piec {
   int move_dir;
   
   
-  tower(int x,int y,boolean t) {
-    super(x,y,t);
+  tower(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     int c = 0;
     if(!t) {
       c += 60;
@@ -54,8 +56,8 @@ class tower extends Piec {
 ///////////////////////////BISHOP//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 class bishop extends Piec {
-  bishop(int x, int y,boolean t) {
-    super(x,y,t);
+  bishop(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     int c = 0;
     if(!t) {
       c += 60;
@@ -74,8 +76,8 @@ class bishop extends Piec {
 ///////////////////////////KNIGTH//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 class knigth extends Piec {
-  knigth(int x, int y,boolean t) {
-    super(x,y,t);
+  knigth(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     int c = 0;
     if(!t) {
       c += 60;
@@ -110,8 +112,8 @@ class knigth extends Piec {
 ///////////////////////////KING//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 class king extends Piec {
-  king(int x, int y,boolean t) {
-    super(x,y,t);
+  king(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     int c = 0;
     if(!t) {
       c += 60;
@@ -129,8 +131,8 @@ class king extends Piec {
 ///////////////////////////QUEEN//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 class queen extends Piec {
-  queen(int x, int y,boolean t) {
-    super(x,y,t);
+  queen(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     int c = 0;
     if(!t) {
       c += 60;
@@ -160,8 +162,8 @@ class pawn extends Piec {
   int move_dir;
   
   
-  pawn(int x,int y,boolean t) {
-    super(x,y,t);
+  pawn(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
     if(x == 1) {
       this.move_dir = 1;
     } else {
