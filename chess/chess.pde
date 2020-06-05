@@ -57,7 +57,7 @@ void setup() {
   
   size(480,480);
   
-  piec_sheet = loadImage("sheet_noise_median_modified.jpg");
+  piec_sheet = loadImage("sheet_noise_median_modified.gif");
   
   board = new Board();
   
