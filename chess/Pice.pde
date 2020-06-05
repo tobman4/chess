@@ -173,7 +173,7 @@ class pawn extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(0,c,60,60);
+      icon = piec_sheet.get(0,c,60,60);
   }
   
   void move(Point new_pos) {
