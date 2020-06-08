@@ -117,7 +117,7 @@ class Board  {
         }
       }
     } else if(X_dif == Y_dif || -X_dif == Y_dif) {
-      int start,end,step; //<>//
+      int start,end,step; //<>// //<>// //<>//
       int X_step;
       int Y_step;
       if(a.X < b.X) {
