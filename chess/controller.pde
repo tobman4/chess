@@ -1,7 +1,7 @@
 class board_controller {
   
   Board playing_board;
-  UI ui;
+  Recorder rec;
   Point pos_a = null;
   Piec selected = null;
   boolean turn = true;
@@ -11,7 +11,7 @@ class board_controller {
     this.playing_board = b;
     
     int board_w = this.playing_board.piec_W*this.playing_board.size;
-    ui = new UI(board_w,0,width-board_w,height);
+    rec = new Recorder(board_w,0,width-board_w,height);
   }
   
   void get_input(int x, int y) {
@@ -36,6 +36,7 @@ class board_controller {
       }
     } else if(pos_a != null) {
       if(this.playing_board.move_piec(pos_a,pos,false)) {
+        this.rec.record_move(pos_a,pos);
         selected.DBG = false;
         pos_a = null;
         this.turn = !this.turn;
@@ -124,8 +125,8 @@ class board_controller {
   }
   
   void render() { 
-   if(ui != null) {
-     ui.render();
+   if(this.rec != null) {
+     this.rec.render();
    }
   }
 }
