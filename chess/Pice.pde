@@ -43,7 +43,7 @@ class tower extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(60,c,120,60);
+    icon = piec_sheet.get(60,c,60,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -62,7 +62,7 @@ class bishop extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(180,c,240,60);
+    icon = piec_sheet.get(180,c,60,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -82,7 +82,7 @@ class knigth extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(120,c,180,60);
+    icon = piec_sheet.get(120,c,60,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -118,7 +118,7 @@ class king extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(300,c,360,60);
+    icon = piec_sheet.get(300,c,60,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -137,7 +137,7 @@ class queen extends Piec {
     if(!t) {
       c += 60;
     }
-    icon = piec_sheet.get(240,c,300,60);
+    icon = piec_sheet.get(240,c,60,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {

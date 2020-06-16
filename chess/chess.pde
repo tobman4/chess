@@ -25,7 +25,7 @@ int[][] piec_list1 = {
   {4,1,0,3}, // king
   {5,1,0,4}, // queen
 };
-/*
+
 int[][] piec_list2 = {
   {0,0,6,0}, // pawn
   {0,0,6,1},
@@ -47,11 +47,11 @@ int[][] piec_list2 = {
   
   {4,0,7,4}, // king
   {5,0,7,3}, // queen
-};*/
+};
 
 void setup() {
   
-  size(600,480);
+  size(700,480);
   
   piec_sheet = loadImage("sheet_noise_median_modified.gif");
   
@@ -60,7 +60,7 @@ void setup() {
   controller = new board_controller(board);
   
   controller._place_array(piec_list1);
-  //controller._place_array(piec_list2);
+  controller._place_array(piec_list2);
 }
 
 void draw() {
@@ -85,5 +85,11 @@ class Point {
     print(this.X);
     print("Y: ");
     print(this.Y);
+  }
+  
+  String to_SAN() {
+    String y = str(8-this.Y);
+    String x = str((char)(65+this.X));
+    return x+y;
   }
 }
