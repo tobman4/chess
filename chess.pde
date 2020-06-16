@@ -42,7 +42,7 @@ int[][] piec_list1 = {
   {5,1,0,4}, // queen
 };
 
-/*
+
 // black team
 int[][] piec_list2 = {
   {0,0,6,0}, // pawn
@@ -66,7 +66,7 @@ int[][] piec_list2 = {
   {4,0,7,4}, // king
   {5,0,7,3}, // queen
 };
-*/
+
 
 void setup() {
   
@@ -79,12 +79,22 @@ void setup() {
   controller = new board_controller(board);
   
   controller._place_array(piec_list1);
-  //controller._place_array(piec_list2);
+  controller._place_array(piec_list2);
 }
 
 void draw() {
   board.render();
   controller.render();
+}
+
+String get_time() {
+  String out = "";
+  out += hour();
+  out += ":";
+  out += second();
+  out += ":";
+  out += millis();
+  return out;
 }
 
 class Point {
