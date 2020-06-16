@@ -1,9 +1,9 @@
-class UI { // need new name
+class Recorder { // need new name
   Point pos,size;
   
   ArrayList<String> move_list = new ArrayList<String>();
   
-  UI(int x, int y, int w, int h) {
+  Recorder(int x, int y, int w, int h) {
     this.pos = new Point(x,y);
     this.size = new Point(w-1,h);
   }

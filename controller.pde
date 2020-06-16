@@ -1,11 +1,7 @@
 class board_controller {
   
   Board playing_board;
-<<<<<<< HEAD:chess/controller.pde
   Recorder rec;
-=======
-  UI ui;
->>>>>>> parent of b7ade41... mappe fix:chess/controller.pde
   Point pos_a = null;
   Piec selected = null;
   boolean turn = true;
@@ -15,11 +11,7 @@ class board_controller {
     this.playing_board = b;
     
     int board_w = this.playing_board.piec_W*this.playing_board.size;
-<<<<<<< HEAD:chess/controller.pde
     rec = new Recorder(board_w,0,width-board_w,height);
-=======
-    ui = new UI(board_w,0,width-board_w,height);
->>>>>>> parent of b7ade41... mappe fix:chess/controller.pde
   }
   
   void get_input(int x, int y) {
@@ -44,10 +36,7 @@ class board_controller {
       }
     } else if(pos_a != null) {
       if(this.playing_board.move_piec(pos_a,pos,false)) {
-<<<<<<< HEAD:chess/controller.pde
         this.rec.record_move(pos_a,pos);
-=======
->>>>>>> parent of b7ade41... mappe fix:chess/controller.pde
         selected.DBG = false;
         pos_a = null;
         this.turn = !this.turn;
@@ -136,13 +125,8 @@ class board_controller {
   }
   
   void render() { 
-<<<<<<< HEAD:chess/controller.pde
    if(this.rec != null) {
      this.rec.render();
-=======
-   if(ui != null) {
-     ui.render();
->>>>>>> parent of b7ade41... mappe fix:chess/controller.pde
    }
   }
 }

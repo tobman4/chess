@@ -3,6 +3,22 @@ board_controller controller;
 PImage piec_sheet;
 boolean DEBUG = false;
 
+/*
+  to place piec
+  add item to a list below
+
+   { piec_id, team, x_pos, y_pos }
+
+  - piec_id = se code in /controller.pde > board_controller._place_array
+
+  - team = 1 = white and 0 = black
+
+  - x_pos = x in grid
+
+  - y_pos = y in grid
+*/
+
+
 int[][] piec_list1 = {
   {0,1,1,0}, // pawn
   //{0,1,1,1},
@@ -25,11 +41,9 @@ int[][] piec_list1 = {
   {4,1,0,3}, // king
   {5,1,0,4}, // queen
 };
-<<<<<<< HEAD:chess/chess.pde
 
-=======
 /*
->>>>>>> parent of b7ade41... mappe fix:chess/chess.pde
+// black team
 int[][] piec_list2 = {
   {0,0,6,0}, // pawn
   {0,0,6,1},
@@ -51,19 +65,12 @@ int[][] piec_list2 = {
   
   {4,0,7,4}, // king
   {5,0,7,3}, // queen
-<<<<<<< HEAD:chess/chess.pde
 };
+*/
 
 void setup() {
   
   size(700,480);
-=======
-};*/
-
-void setup() {
-  
-  size(600,480);
->>>>>>> parent of b7ade41... mappe fix:chess/chess.pde
   
   piec_sheet = loadImage("sheet_noise_median_modified.gif");
   
@@ -72,11 +79,7 @@ void setup() {
   controller = new board_controller(board);
   
   controller._place_array(piec_list1);
-<<<<<<< HEAD:chess/chess.pde
-  controller._place_array(piec_list2);
-=======
   //controller._place_array(piec_list2);
->>>>>>> parent of b7ade41... mappe fix:chess/chess.pde
 }
 
 void draw() {
@@ -102,13 +105,10 @@ class Point {
     print("Y: ");
     print(this.Y);
   }
-<<<<<<< HEAD:chess/chess.pde
   
   String to_SAN() {
     String y = str(8-this.Y);
     String x = str((char)(65+this.X));
     return x+y;
   }
-=======
->>>>>>> parent of b7ade41... mappe fix:chess/chess.pde
 }
