@@ -7,6 +7,7 @@ class board_controller {
   boolean turn = true;
   boolean game_over = false;
   
+
   board_controller(Board b) {
     this.playing_board = b;
     
@@ -73,10 +74,10 @@ class board_controller {
     }
     
     if(!t_king) {
-      print("The white king is dead");
+      println("The white king is dead");
       return 1;
     } else if(!f_king) {
-      print("The black king is dead");
+      println("The black king is dead");
       return 0;
     }
     return -1;
@@ -111,6 +112,8 @@ class board_controller {
         case 5:
           p = new queen(x,y,w,h,team);
           break;
+
+        
           
         default:
           println("ERROR ON UNKNOWN PIEC!!!");
@@ -123,12 +126,73 @@ class board_controller {
       
     }
   }
-  
+
   void render() { 
    if(this.rec != null) {
      this.rec.render();
+     push();
+     translate(this.rec.pos.X, this.rec.pos.Y);
+     
+     String placing_piec = "place: " + piec_list[dbg_place_index];
+     String placing_team = "team: " + str(dbg_place_team);
+     
+     
+     
+     
+     noFill();
+     textAlign(LEFT);
+     textSize(15);
+     text("DEBUG MODE!",0,15);
+     text(placing_piec ,0,30);
+     text(placing_team,0,45);
+     pop();
+
    }
   }
+}
+int t_size = 15;
+void keyPressed() {
+  if(keyCode == 27) {
+    exit();
+  }
+
+
+  switch(keyCode) {
+    case 38:
+      dbg_place_index++;
+      break;
+    case 40:
+      dbg_place_index--;
+      break;
+    
+    case 37:
+    case 39:
+      dbg_place_team = !dbg_place_team;
+      break;
+
+    case 32:
+
+      Point place_pos = controller.playing_board.pixel_to_grid(mouseX,mouseY);
+      int[][] place_order = {{
+        dbg_place_index,
+        int(dbg_place_team),
+        place_pos.X,
+        place_pos.Y
+      }};
+      controller._place_array(place_order);
+      break;
+    
+    default:
+      println("Keycode not in use: " + str(keyCode));
+      break;
+  }
+
+  if(dbg_place_index < 0) {
+    dbg_place_index = piec_list.length - 1;
+  } else if(dbg_place_index >= piec_list.length) {
+    dbg_place_index = 0;
+  }
+
 }
 
 void mousePressed() {

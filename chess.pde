@@ -1,7 +1,6 @@
 Board board;
 board_controller controller;
 PImage piec_sheet;
-boolean DEBUG = false;
 
 /*
   to place piec
@@ -40,11 +39,9 @@ int[][] piec_list1 = {
   
   {4,1,0,3}, // king
   {5,1,0,4}, // queen
-};
-
-
-// black team
-int[][] piec_list2 = {
+  //////////////////
+  /////BLACK TEAM///
+  //////////////////
   {0,0,6,0}, // pawn
   {0,0,6,1},
   {0,0,6,2},
@@ -66,7 +63,22 @@ int[][] piec_list2 = {
   {4,0,7,4}, // king
   {5,0,7,3}, // queen
 };
+//////////////////////////
+///////DEBUG MODE  ///////
+//////////////////////////
+boolean DEBUG = false;
+int dbg_place_index = 0;
+boolean dbg_place_team = true;
 
+String piec_list[] = {
+  "Pawn",
+  "Tower",
+  "bishop",
+  "knigth",
+  "king",
+  "queen"
+};
+////////////////////////////
 
 void setup() {
   
@@ -78,11 +90,11 @@ void setup() {
   
   controller = new board_controller(board);
   
-  controller._place_array(piec_list1);
-  controller._place_array(piec_list2);
+  //controller._place_array(piec_list1);
 }
 
 void draw() {
+  background(255);
   board.render();
   controller.render();
 }

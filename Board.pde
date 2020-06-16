@@ -41,6 +41,10 @@ class Board  {
   }
   
   boolean place_piec(int x, int y, Piec p, boolean force) {
+    if(x < 0 || y < 0 || x >= this.size || y >= this.size) {
+      return false;
+    }
+    
     if(this.Board[x][y] == null || force) {
       p.pos = new Point(x*this.piec_W,y*this.piec_H); 
       this.Board[x][y] = p;
@@ -164,7 +168,7 @@ class Board  {
   
   Piec get_piec(Point pos) {
     if(!(pos.X < 0 || pos.Y < 0 ||
-    pos.X >this.size || pos.Y > this.size)) {
+    pos.X >= this.size || pos.Y >= this.size)) {
       
       return this.Board[pos.X][pos.Y];
     } else { 
