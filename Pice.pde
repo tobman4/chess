@@ -45,7 +45,7 @@ abstract class Piec {
     } else if(current_frame.X == 120) {
       current_frame.X = 0;
     } else if(current_frame.X == 300) {
-      current_frame.X = 240;
+      current_frame.X = 180;
     }
 
     this.icon = piec_sheet.get(current_frame.X,current_frame.Y,60,60);
