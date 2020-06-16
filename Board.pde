@@ -34,7 +34,7 @@ class Board  {
         c = !c;
         rect(i*this.piec_W,j*this.piec_H,this.piec_W,this.piec_H);
         if(this.Board[i][j] != null) {
-          this.Board[i][j].render();
+          this.Board[i][j].renderV2();
         }
       }
     }
@@ -117,7 +117,7 @@ class Board  {
         }
       }
     } else if(X_dif == Y_dif || -X_dif == Y_dif) {
-      int start,end,step; //<>// //<>// //<>//
+      int start,end,step; //<>// //<>// //<>// //<>//
       int X_step;
       int Y_step;
       if(a.X < b.X) {

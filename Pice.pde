@@ -1,8 +1,12 @@
 abstract class Piec {
-  Point pos,size;
+  Point pos,size,sprite_base;
+  Point current_frame = null;
   boolean DBG = false;
   boolean team = true;
   PImage icon = loadImage("default.PNG");
+
+  int frame_delay = 250; // change default frame delay
+  int last_frame_change = -10;
   
   Piec(int x, int y,int w, int h,boolean t) {
     this.pos = new Point(x,y);
@@ -20,6 +24,35 @@ abstract class Piec {
     }  
   }
   
+  void renderV2() {   
+    if(millis() > last_frame_change + frame_delay) {
+      next_frame();
+    }
+    image(this.icon,this.pos.X,this.pos.Y);
+    if(this.DBG) {
+      fill(255,0,255,100);
+      rect(this.pos.X,this.pos.Y,60,60);
+    }
+  }
+
+  private void next_frame() {
+    if(current_frame == null) { // i am lazy
+      current_frame = sprite_base.Copy();
+    }
+
+    if(current_frame.X != 120 && current_frame.X != 300) {
+      current_frame.X += 60;
+    } else if(current_frame.X == 120) {
+      current_frame.X = 0;
+    } else if(current_frame.X == 300) {
+      current_frame.X = 180;
+    }
+
+    this.icon = piec_sheet.get(current_frame.X,current_frame.Y,60,60);
+
+    last_frame_change = millis();
+  }
+  
   void move(Point new_pos) {
     this.pos = new_pos.Copy();
   }
@@ -35,15 +68,15 @@ class tower extends Piec {
   
   boolean first_move = true;
   int move_dir;
-  
-  
+
   tower(int x, int y,int w, int h,boolean t) {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(60,c,60,60);
+    this.sprite_base = new Point(c,60);
+    
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -60,9 +93,9 @@ class bishop extends Piec {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(180,c,60,60);
+    this.sprite_base = new Point(c,180);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -80,9 +113,9 @@ class knigth extends Piec {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(120,c,60,60);
+    this.sprite_base = new Point(c,120);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -116,9 +149,9 @@ class king extends Piec {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(300,c,60,60);
+    this.sprite_base = new Point(c,300);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -135,9 +168,9 @@ class queen extends Piec {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(240,c,60,60);
+    this.sprite_base = new Point(c,240);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -169,22 +202,14 @@ class pawn extends Piec {
     } else {
       this.move_dir = -1;
     }
-    int sheet_pos = 60;
-    int animation_length = 3;
-    
-    
-    
-  }
-  
-  void render() {
-    
-    int x = 60*(frameCount%3);
-    this.icon = piec_sheet.get(x,0,60,60);
-    image(this.icon,this.pos.X,this.pos.Y);
-    if(this.DBG) {
-      fill(255,0,255,100);
-      rect(this.pos.X,this.pos.Y,60,60);
+    int c = 0;
+    if(!t) {
+      c += 240;
     }
+    this.sprite_base = new Point(c,0);
+    
+    
+    
   }
   
   void move(Point new_pos) {
