@@ -169,11 +169,22 @@ class pawn extends Piec {
     } else {
       this.move_dir = -1;
     }
-    int c = 0;
-    if(!t) {
-      c += 60;
+    int sheet_pos = 60;
+    int animation_length = 3;
+    
+    
+    
+  }
+  
+  void render() {
+    
+    int x = 60*(frameCount%3);
+    this.icon = piec_sheet.get(x,0,60,60);
+    image(this.icon,this.pos.X,this.pos.Y);
+    if(this.DBG) {
+      fill(255,0,255,100);
+      rect(this.pos.X,this.pos.Y,60,60);
     }
-      icon = piec_sheet.get(0,c,60,60);
   }
   
   void move(Point new_pos) {

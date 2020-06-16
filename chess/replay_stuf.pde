@@ -12,6 +12,8 @@ class UI { // need new name
     noFill();
     stroke(255,0,255);
     rect(this.pos.X,this.pos.Y,this.size.X,this.size.Y);
+    // print move list 
+    // max 10?
   }
   
   void record_move(Point from, Point to) {
