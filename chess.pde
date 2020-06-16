@@ -21,13 +21,13 @@ boolean DEBUG = false;
 
 int[][] piec_list1 = {
   {0,1,1,0}, // pawn
-  //{0,1,1,1},
-  //{0,1,1,2},
-  //{0,1,1,3},
-  //{0,1,1,4},
-  //{0,1,1,5},
-  //{0,1,1,6},
-  //{0,1,1,7}, // pawn end
+  {0,1,1,1},
+  {0,1,1,2},
+  {0,1,1,3},
+  {0,1,1,4},
+  {0,1,1,5},
+  {0,1,1,6},
+  {0,1,1,7}, // pawn end
   
   {1,1,0,0}, // tower
   {1,1,0,7}, // tower end
@@ -72,7 +72,7 @@ void setup() {
   
   size(700,480);
   
-  piec_sheet = loadImage("sheet_noise_median_modified.gif");
+  piec_sheet = loadImage("sheet_animated.gif");
   
   board = new Board();
   

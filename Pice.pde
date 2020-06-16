@@ -1,5 +1,5 @@
 abstract class Piec {
-  Point pos,size;
+  Point pos,size,sprite_base;
   boolean DBG = false;
   boolean team = true;
   PImage icon = loadImage("default.PNG");
@@ -20,6 +20,16 @@ abstract class Piec {
     }  
   }
   
+  void renderV2() {   
+    int x = 60*(frameCount%3);
+    this.icon = piec_sheet.get(x,this.sprite_base.Y,60,60);
+    image(this.icon,this.pos.X,this.pos.Y);
+    if(this.DBG) {
+      fill(255,0,255,100);
+      rect(this.pos.X,this.pos.Y,60,60);
+    }
+  }
+  
   void move(Point new_pos) {
     this.pos = new_pos.Copy();
   }
@@ -36,14 +46,13 @@ class tower extends Piec {
   boolean first_move = true;
   int move_dir;
   
-  
   tower(int x, int y,int w, int h,boolean t) {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
-    icon = piec_sheet.get(60,c,60,60);
+    this.sprite_base = new Point(c,60);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -60,9 +69,10 @@ class bishop extends Piec {
     super(x,y,w,h,t);
     int c = 0;
     if(!t) {
-      c += 60;
+      c += 240;
     }
     icon = piec_sheet.get(180,c,60,60);
+    this.sprite_base = new Point(c,180);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -83,6 +93,7 @@ class knigth extends Piec {
       c += 60;
     }
     icon = piec_sheet.get(120,c,60,60);
+    this.sprite_base = new Point(0,120);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -119,6 +130,7 @@ class king extends Piec {
       c += 60;
     }
     icon = piec_sheet.get(300,c,60,60);
+    this.sprite_base = new Point(0,300);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -138,6 +150,7 @@ class queen extends Piec {
       c += 60;
     }
     icon = piec_sheet.get(240,c,60,60);
+    this.sprite_base = new Point(0,240);
   }
   
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
@@ -171,6 +184,7 @@ class pawn extends Piec {
     }
     int sheet_pos = 60;
     int animation_length = 3;
+    this.sprite_base = new Point(0,0);
     
     
     
