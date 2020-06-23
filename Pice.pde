@@ -2,7 +2,8 @@ abstract class Piec {
   Point pos,size,sprite_base;
   Point current_frame = null;
   boolean DBG = false;
-  boolean team = true;
+  private boolean team = true;
+  private boolean is_killed = false;
   PImage icon = loadImage("default.PNG");
 
   int frame_delay = 250; // change default frame delay
@@ -15,16 +16,7 @@ abstract class Piec {
     team = t;
   }
   
-  void render() {
-    noStroke();
-    image(this.icon,this.pos.X,this.pos.Y);
-    if(this.DBG) {
-      fill(255,0,255,100);
-      rect(this.pos.X,this.pos.Y,60,60);
-    }  
-  }
-  
-  void renderV2() {   
+  void render() {   
     if(millis() > last_frame_change + frame_delay) {
       next_frame();
     }
@@ -57,8 +49,24 @@ abstract class Piec {
     this.pos = new_pos.Copy();
   }
   
+  boolean kill(Piec killer) {
+    this.is_killed = true;
+    return true;
+  }
+
+  boolean is_dead() {
+    return this.is_killed;
+  }
   
-   abstract boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump);
+
+
+  abstract boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump);
+  boolean move_check(Point from, Point to, boolean wil_kill, ArrayList<Piec> wil_jump) {
+     /*
+      i dont want to rewrite old code so i did this :)
+     */
+     return this.move_check(from,to,wil_kill,wil_jump.size() > 0);
+   }
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -79,6 +87,41 @@ class tower extends Piec {
     
   }
   
+  boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
+    return ((from.X == to.X && from.Y != to.Y) ||
+           (from.X != to.X && from.Y == to.Y)) &&
+           !wil_jump;
+  }
+}//////////////////////////////////////////////////////////////////////////////
+///////////////////////////PAC_MAN//////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+class pac_man extends Piec {
+  
+  boolean first_move = true;
+  int move_dir;
+
+  pac_man(int x, int y,int w, int h,boolean t) {
+    super(x,y,w,h,t);
+    int c = 0;
+    if(!t) {
+      c += 240;
+    }
+    this.sprite_base = new Point(c,60);
+    
+  }
+  
+  boolean move_check(Point from, Point to, boolean wil_kill, ArrayList<Piec> wil_jump) {
+    if(((from.X == to.X && from.Y != to.Y) ||
+    (from.X != to.X && from.Y == to.Y))) {
+      for(int i = 0; i < wil_jump.size(); i++) {
+        Piec curr = wil_jump.get(i);
+        curr.kill(this);
+      }
+      return true;
+    }
+    return false;
+  }
+
   boolean move_check(Point from, Point to, boolean wil_kill, boolean wil_jump) {
     return ((from.X == to.X && from.Y != to.Y) ||
            (from.X != to.X && from.Y == to.Y)) &&

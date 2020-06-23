@@ -76,7 +76,8 @@ String piec_list[] = {
   "bishop",
   "knigth",
   "king",
-  "queen"
+  "queen",
+  "pac man"
 };
 ////////////////////////////
 

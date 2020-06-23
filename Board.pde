@@ -34,12 +34,26 @@ class Board  {
         c = !c;
         rect(i*this.piec_W,j*this.piec_H,this.piec_W,this.piec_H);
         if(this.Board[i][j] != null) {
-          this.Board[i][j].renderV2();
+          this.Board[i][j].render();
         }
       }
     }
   }
   
+  void step() {
+    for(int i = 0; i < this.Board.length; i++) {
+      for(int j = 0; j < this.Board[i].length; j++) {
+        if(this.Board[i][j] != null) {
+          if(this.Board[i][j].is_dead()) {
+            this.Board[i][j] = null;
+          } else {
+            //this.Board[i][j].step();
+          }
+        }
+      }
+    }
+  }
+
   boolean place_piec(int x, int y, Piec p, boolean force) {
     if(x < 0 || y < 0 || x >= this.size || y >= this.size) {
       return false;
@@ -58,7 +72,7 @@ class Board  {
     Piec curr = this.Board[from.X][from.Y];
     
     boolean wil_kill = this.is_killing_move(to,from);
-    boolean wil_jump = this.is_jump_move(to,from);
+    ArrayList<Piec> wil_jump = this.is_jump_move(to,from);
     
     if(DEBUG) {
       print("this move wil kill: ");
@@ -88,10 +102,11 @@ class Board  {
     return (this.Board[a.X][a.Y] != null && this.Board[b.X][b.Y] != null);
   }
   
-  boolean is_jump_move(Point b, Point a) {
+  ArrayList<Piec> is_jump_move(Point b, Point a) {
     int X_dif = a.X - b.X;
     int Y_dif = a.Y - b.Y;
     int[] cord = {a.X,a.Y};
+    ArrayList<Piec> wil_jump = new ArrayList<Piec>();
     
     if(X_dif == 0 || Y_dif == 0) { // ifi it is not a diagonal move
       int start,end,step,mark;
@@ -117,7 +132,8 @@ class Board  {
         cord[mark] = i;
          if(cord[0] == a.X && cord[1] == a.Y || cord[0] == b.X && cord[1] == b.Y) {
          } else if(this.Board[cord[0]][cord[1]] != null) {
-          return true;
+          wil_jump.add(this.Board[cord[0]][cord[1]]);
+          //return true;
         }
       }
     } else if(X_dif == Y_dif || -X_dif == Y_dif) {
@@ -146,11 +162,13 @@ class Board  {
         cord[0] += X_step;
         cord[1] += Y_step;
         if(this.Board[cord[0]][cord[1]] != null) {
-          return true;
+          wil_jump.add(this.Board[cord[0]][cord[1]]);
+          // return true;
         }
       }
     }
-    return false;
+    return wil_jump;
+    // return false;
   }
   
   Point pixel_to_grid(int x,int y) {
