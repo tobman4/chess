@@ -41,6 +41,7 @@ class board_controller {
         selected.DBG = false;
         pos_a = null;
         this.turn = !this.turn;
+        this.playing_board.step();
       }
     }
     if(find_winner() >= 0) {
@@ -112,6 +113,9 @@ class board_controller {
         case 5:
           p = new queen(x,y,w,h,team);
           break;
+        case 6:
+          p = new pac_man(x,y,w,h,team);
+          break;
 
         
           
@@ -130,14 +134,11 @@ class board_controller {
   void render() { 
    if(this.rec != null) {
      this.rec.render();
+     
      push();
      translate(this.rec.pos.X, this.rec.pos.Y);
-     
      String placing_piec = "place: " + piec_list[dbg_place_index];
      String placing_team = "team: " + str(dbg_place_team);
-     
-     
-     
      
      noFill();
      textAlign(LEFT);
